@@ -8,12 +8,25 @@ public class Moving : MonoBehaviour
 
     public float movePower = 10f;
     public float jumpPower = 10f;
+    bool isGround = false;
+    bool isJumping = false;
 
     Rigidbody2D rigid;
+    
 
     Vector3 movement;
 
-    bool isJumping = false;
+
+
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGround = true;
+        }
+    }
 
     void Start()
     {
@@ -23,10 +36,14 @@ public class Moving : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (isGround)
         {
-            isJumping = true;
+            if (Input.GetButtonDown("Jump"))
+            {
+                isJumping = true;
+            }
         }
+
     }
 
     private void FixedUpdate()
@@ -34,6 +51,8 @@ public class Moving : MonoBehaviour
         Move();
         Jump();
     }
+
+
 
 
     void Move()
@@ -62,6 +81,7 @@ public class Moving : MonoBehaviour
         rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
 
         isJumping = false;
+        isGround = false;
 
     }
 }
