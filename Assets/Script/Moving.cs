@@ -8,8 +8,10 @@ public class Moving : MonoBehaviour
 
     public float movePower = 10f;
     public float jumpPower = 10f;
-    bool isGround = false;
+    public bool isGround = false;
     bool isJumping = false;
+
+    public int score = 0;
 
     Rigidbody2D rigid;
     
@@ -25,6 +27,11 @@ public class Moving : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             isGround = true;
+        }
+        else if (collision.gameObject.tag == "item")
+        {
+            score++;
+            collision.gameObject.SetActive(false);
         }
     }
 
