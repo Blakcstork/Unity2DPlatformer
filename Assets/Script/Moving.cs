@@ -11,6 +11,8 @@ public class Moving : MonoBehaviour
     public bool isGround = false;
     bool isJumping = false;
 
+    public Renderer playerColor;
+
     public int score = 0;
 
     Rigidbody2D rigid;
@@ -45,10 +47,15 @@ public class Moving : MonoBehaviour
     {
         if (isGround)
         {
+            playerColor.material.color = Color.yellow;
             if (Input.GetButtonDown("Jump"))
             {
                 isJumping = true;
             }
+        }
+        else
+        {
+            playerColor.material.color = Color.white;
         }
 
     }
