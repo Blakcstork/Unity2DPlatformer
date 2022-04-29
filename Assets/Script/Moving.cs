@@ -11,8 +11,6 @@ public class Moving : MonoBehaviour
     public bool isGround = false;
     bool isJumping = false;
 
-    public Renderer playerColor;
-
     public int score = 0;
 
     Rigidbody2D rigid;
@@ -30,9 +28,14 @@ public class Moving : MonoBehaviour
         {
             isGround = true;
         }
-        else if (collision.gameObject.tag == "item")
+        else if (collision.gameObject.tag == "gold")
         {
             score++;
+            collision.gameObject.SetActive(false);
+        }
+        else if (collision.gameObject.tag == "item")
+        {
+            movePower *= 2;
             collision.gameObject.SetActive(false);
         }
     }
@@ -47,15 +50,11 @@ public class Moving : MonoBehaviour
     {
         if (isGround)
         {
-            playerColor.material.color = Color.yellow;
+           
             if (Input.GetButtonDown("Jump"))
             {
                 isJumping = true;
             }
-        }
-        else
-        {
-            playerColor.material.color = Color.white;
         }
 
     }

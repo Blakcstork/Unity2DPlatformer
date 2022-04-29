@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - item
+  - gold
   layers:
   - Default
   - TransparentFX
