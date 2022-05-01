@@ -39,6 +39,7 @@ public class Moving : MonoBehaviour
             movePower *= 2;
             itemPowerCount = 3;
             collision.gameObject.SetActive(false);
+            StartCoroutine(OnBuffCoroutine("Subtraction", 5));
         }
     }
 
@@ -60,14 +61,6 @@ public class Moving : MonoBehaviour
             }
         }
 
-        if(itemPowerCount > 0)
-        {
-            itemPowerCount--;
-        }
-        else if (itemPowerCount == 0)
-        {
-            movePower /= 2;
-        }
 
     }
 
@@ -78,6 +71,21 @@ public class Moving : MonoBehaviour
     }
 
 
+
+    IEnumerator OnBuffCoroutine(string operation, int time)
+    {
+        float temp = movePower;
+       
+        time--;
+        movePower = 20f;
+        if(time == 0)
+        {
+            
+            movePower = temp;
+            yield return null;
+        }
+        yield return null;
+    }
 
 
     void Move()
