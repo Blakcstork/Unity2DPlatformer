@@ -9,7 +9,6 @@ public class Moving : MonoBehaviour
     public float movePower = 10f;
     public float jumpPower = 10f;
     public bool isGround = false;
-    public int itemPowerCount;
     bool isJumping = false;
 
     public int score = 0;
@@ -36,17 +35,14 @@ public class Moving : MonoBehaviour
         }
         else if (collision.gameObject.tag == "item")
         {
-            movePower *= 2;
-            itemPowerCount = 3;
             collision.gameObject.SetActive(false);
-            StartCoroutine(OnBuffCoroutine("Subtraction", 5));
+            StartCoroutine(OnBuffCoroutine(10));
         }
     }
 
     void Start()
     {
         rigid = gameObject.GetComponent<Rigidbody2D>();
-        itemPowerCount = 0;
     }
 
     // Update is called once per frame
@@ -72,19 +68,12 @@ public class Moving : MonoBehaviour
 
 
 
-    IEnumerator OnBuffCoroutine(string operation, int time)
+    IEnumerator OnBuffCoroutine(float time)
     {
-        float temp = movePower;
-       
-        time--;
-        movePower = 20f;
-        if(time == 0)
-        {
-            
-            movePower = temp;
-            yield return null;
-        }
-        yield return null;
+        movePower *= 2;
+        yield return new WaitForSeconds(time);
+        movePower /= 2;
+
     }
 
 
