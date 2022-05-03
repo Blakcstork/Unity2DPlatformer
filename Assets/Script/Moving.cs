@@ -36,12 +36,12 @@ public class Moving : MonoBehaviour
         else if (collision.gameObject.tag == "item")
         {
             collision.gameObject.SetActive(false);
-            StartCoroutine(OnBuffCoroutine(10));
+            StartCoroutine(OnBuffCoroutine("SpeedUp", 3));
         }
     }
 
     void Start()
-    {
+    { 
         rigid = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -68,12 +68,15 @@ public class Moving : MonoBehaviour
 
 
 
-    IEnumerator OnBuffCoroutine(float time)
+    IEnumerator OnBuffCoroutine(string buffName, float time)
     {
-        movePower *= 2;
-        yield return new WaitForSeconds(time);
-        movePower /= 2;
-
+        if(buffName == "SpeedUp")
+        {
+            float temp = movePower;
+            movePower *= 2;
+            yield return new WaitForSeconds(time);
+            movePower = temp;
+        }
     }
 
 
